@@ -13,7 +13,7 @@ if (cluster.isMaster) {
       workers[i].on('message', (message) => {
         if (message.cmd == 'incrementRequestTotal') {
           requests++;
-          for (var j = 0; j < numCPUs; j++) {
+          for (let j = 0; j < numCPUs; j++) {
             workers[j].send({
               cmd: 'updateOfRequestTotal',
               requests: requests
@@ -25,7 +25,7 @@ if (cluster.isMaster) {
   }
 
   cluster.on('exit', (worker, code, signal) => {
-    console.log('Worker %s died.', worker.process.pid);
+    console.log(`Worker ${worker.process.pid} died.`);
   });
 } else {
   process.on('message', (message) => {
